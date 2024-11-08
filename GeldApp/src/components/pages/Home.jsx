@@ -39,7 +39,24 @@ function Home() {
             </div>
         </div>
         <div className="inputKaart">
-            
+            <h1>Voer je Inkomen of Uitgaven!</h1>
+            <div className="form-group">
+                <label for='Inkomen_Uitgaven_Input'>Inkomen/Uitgaven</label>
+                <div className="inputArea">
+                    <h4>€</h4>
+                    <input type='text' className='form-control' placeholder="Bedrag" name="Inkomen_Uitgaven_Input"/>
+                </div>
+                <button type="submit" name='bedragDoorGegeven'>Verstuur</button>
+            </div>
+            <div className="huidigeToestand">
+            <div className="form-group">
+                <label for='Inkomen_Uitgaven_Input'>Inkomen/Uitgaven</label>
+                <div className="inputArea">
+                    <h4>€</h4>
+                    <input type='text' disabled className='form-control' placeholder="Bedrag" name="Inkomen_Uitgaven_Input"/>
+                </div>
+            </div>
+            </div>
         </div>
     </div>
   )
