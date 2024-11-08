@@ -1,0 +1,62 @@
+.container {
+    padding-top: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.overzichtKaart {
+    display: flex;
+    flex-direction: row;
+}
+/* Algemene stijl voor beide lijsten */
+.lijstInkomen, .lijstUitgaven {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 500px;
+    background-color: #D9D9D9;
+}
+
+/* Stijl voor de tabel in beide lijsten */
+.lijstInkomen table, .lijstUitgaven table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+/* Stijl voor de tabelkop */
+.lijstInkomen th, .lijstUitgaven th {
+    border-bottom: 2px solid #333;
+    padding: 10px;
+    text-align: left;
+    font-weight: bold;
+    background-color: #f0f0f0;
+}
+
+/* Stijl voor tabelcellen */
+.lijstInkomen td, .lijstUitgaven td {
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+    font-size: 16px;
+}
+
+/* Style for amount cells */
+.lijstInkomen td:nth-child(2), .lijstUitgaven td:nth-child(2) {
+    font-weight: bold;
+    color: #008000; /* Green for income */
+}
+
+/* Alternating row colors */
+.lijstInkomen tr:nth-child(even), .lijstUitgaven tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+
+@media (max-width: 700px) {
+    .overzichtKaart {
+        flex-direction: column;
+    }
+}
