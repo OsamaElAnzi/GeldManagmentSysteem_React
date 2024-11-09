@@ -11,7 +11,7 @@ function App() {
       <div className="App">
         <Navbar />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" active element={<Home />} />
           <Route path="/overons" element={<Overons />} />
           <Route path="/instellingen" element={<Instellingen />} />
         </Routes>

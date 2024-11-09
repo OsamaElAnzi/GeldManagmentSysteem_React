@@ -1,0 +1,10 @@
+logica GeldApp_React:
+
+1:Home pagina Actief [x]
+2:Design van app en responsive maken [ ]
+3:Back-end maken [ ]
+////////////////////////////////////////
+
+
+
+

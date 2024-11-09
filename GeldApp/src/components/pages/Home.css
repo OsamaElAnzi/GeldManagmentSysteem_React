@@ -8,8 +8,11 @@
 .overzichtKaart {
     display: flex;
     flex-direction: row;
+    width: 100%;
+    background-color: #D9D9D9;
+    margin-bottom: 20px;
+    margin: 20px;
 }
-/* Algemene stijl voor beide lijsten */
 .lijstInkomen, .lijstUitgaven {
     display: flex;
     flex-direction: column;
@@ -20,14 +23,12 @@
     background-color: #D9D9D9;
 }
 
-/* Stijl voor de tabel in beide lijsten */
 .lijstInkomen table, .lijstUitgaven table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
 }
 
-/* Stijl voor de tabelkop */
 .lijstInkomen th, .lijstUitgaven th {
     border-bottom: 2px solid #333;
     padding: 10px;
@@ -36,7 +37,6 @@
     background-color: #f0f0f0;
 }
 
-/* Stijl voor tabelcellen */
 .lijstInkomen td, .lijstUitgaven td {
     border-bottom: 1px solid #ccc;
     padding: 10px;
@@ -44,13 +44,11 @@
     font-size: 16px;
 }
 
-/* Style for amount cells */
 .lijstInkomen td:nth-child(2), .lijstUitgaven td:nth-child(2) {
     font-weight: bold;
-    color: #008000; /* Green for income */
+    color: #008000;
 }
 
-/* Alternating row colors */
 .lijstInkomen tr:nth-child(even), .lijstUitgaven tr:nth-child(even) {
     background-color: #fafafa;
 }
@@ -73,12 +71,14 @@
     flex-direction: column;
     justify-content: space-around;
     margin-bottom: 20px;
-    padding: 20px;
+    margin: 20px;
+    background-color: #D9D9D9;
+    width: 100%;
 }
 .inputKaart .form-group {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    margin: 10px;
     flex-direction: column;
 }
 .inputKaart .form-group label {
@@ -96,7 +96,6 @@
     width: 100%;
     border: none;
     text-align: center;
-    border-bottom: 1px solid #ccc;
     font-size: 16px;
 }
 .inputArea {
@@ -104,9 +103,10 @@
     justify-content: center;
     flex-direction: row;
     width: 100%;
+    background-color: white;
 }
 .inputArea h4 {
-    margin-right: 20px;
+    margin: 10px;
     font-size: 18px;
     font-weight: bold;
     display: flex;
