@@ -81,7 +81,7 @@
     margin: 10px;
     flex-direction: column;
 }
-.inputKaart .form-group label {
+.inputKaart .form-group label,select {
     background-color: black;
     color: white;
     width: 100%;
@@ -89,6 +89,7 @@
     font-weight: bold;
     padding: 10px;
 }
+
 .inputKaart .form-group .inputArea input,input[type=text] {
     padding: 10px;
     margin-bottom: 10px;
@@ -125,4 +126,33 @@
     border: none;
     cursor: pointer;
     width: 50%;
+}
+.inputArea2 {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+    max-width: 300px;
+    margin: 20px auto;
+}
+
+.toggle-button {
+    padding: 10px 20px;
+    border: 2px solid #000;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    background-color: #fff;
+    color: #000;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.inputArea2 input[type="radio"] {
+    display: none;
+}
+
+.inputArea2 input[type="radio"]:checked + .toggle-button {
+    background-color: #000;
+    color: #474747;
 }
