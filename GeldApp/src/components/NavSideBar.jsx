@@ -1,7 +1,9 @@
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import menu from "../components/img/menu.png";
+import Menu from "../components/img/menu.png";
+
+
 
 function NavSideBar() {
   const [show, setShow] = useState(false);
@@ -9,21 +11,20 @@ function NavSideBar() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const navLinks = {
-    home: "/",
-    about: "/about",
-    contact: "/contact",
-    faqs: "/faqs",
-    help: "/help",
-    settings: "/settings",
+    Home: "/",
+    Info: "/info",
+    Contact: "/contact",
+    Tutorial: "/tutorial",
+    Help: "/help",
+    Settings: "/settings",
   };
   return (
     <>
       <Button
-        variant="primary"
         onClick={handleShow}
-        className="h-100 bg-primary"
+        className="rounded-0"
       >
-        {menu}
+        <img src={Menu} width={40}  alt="menu" />
       </Button>
 
       <Offcanvas show={show} onHide={handleClose}>
