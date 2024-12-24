@@ -32,33 +32,41 @@ function Home() {
           </Modal.Header>
           <Modal.Body>
             <Form>
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" />
-                <Form.Text className="text-muted">
-                  We'll never share your email with anyone else.
-                </Form.Text>
+              <Form.Group className="mb-3" controlId="formBasicBedrag">
+                <Form.Control type="text" placeholder="Bedrag" />
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" />
+              <Form.Group className="mb-3" controlId="formBasicSoortTransactie">
+                <Form.Select>
+                    <option>Soort transactie</option>
+                    <option>INKOMEN</option>
+                    <option>UITGAVEN</option>
+                </Form.Select>
               </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                <Form.Check type="checkbox" label="Check me out" />
+              <Form.Group className="mb-3" controlId="formBasicOmschrijving">
+                <Form.Control type="text" placeholder="Omschrijving" />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicSoortBiljetten">
+                <Form.Select>
+                    <option>Soort biljetten</option>
+                    <option>5 EUR</option>
+                    <option>10 EUR</option>
+                    <option>20 EUR</option>
+                    <option>50 EUR</option>
+                    <option>100 EUR</option>
+                    <option>200 EUR</option>
+                    <option>500 EUR</option>
+                </Form.Select>
               </Form.Group>
               <Button variant="primary" type="submit">
-                Submit
+                Toevoegen
               </Button>
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-              Close
-            </Button>
-            <Button variant="primary" onClick={handleClose}>
-              Save Changes
-            </Button>
+            <Form.Text>
+                Voeg hier je inkomen of uitgaven aan toe.
+            </Form.Text>
           </Modal.Footer>
         </Modal>
         <LijstTransacties />
