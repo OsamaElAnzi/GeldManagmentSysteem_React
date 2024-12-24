@@ -20,7 +20,7 @@ function NavSideBar() {
 
   return (
     <>
-      <Button onClick={handleShow} className="rounded-0">
+      <Button onClick={handleShow} className="rounded-0 h-100">
         <img src={Menu} width={40} alt="menu" />
       </Button>
 

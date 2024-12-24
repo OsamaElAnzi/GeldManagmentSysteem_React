@@ -1,13 +1,14 @@
 import React from 'react'
 import Grafiek from '../HerbruikbaarCode/Grafiek'
+import LijstTransacties from '../HerbruikbaarCode/LijstTransacties'
 import { Container } from 'react-bootstrap'
 
 function Home() {
   return (
     <>
-      <Container>
-        halo
+      <Container className="d-flex flex-column">
         <Grafiek />
+        <LijstTransacties />
       </Container>
     </>
   )
