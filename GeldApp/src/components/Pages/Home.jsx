@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Grafiek from "../HerbruikbaarCode/Grafiek";
-import dataInvoerForm from "../HerbruikbaarCode/dataInvoerForm";
+import DisplayData from "../HerbruikbaarCode/DisplayData";
 import LijstTransacties from "../HerbruikbaarCode/LijstTransacties";
 import { Container, Button, Modal, Form } from "react-bootstrap";
 
@@ -12,6 +12,7 @@ function Home() {
   return (
     <>
       <Container className="d-flex flex-column">
+        <DisplayData />
         <Grafiek />
         <Button
           variant="primary"

@@ -1,48 +1,74 @@
-import { useState } from "react";
-import Button from "react-bootstrap/Button";
-import Offcanvas from "react-bootstrap/Offcanvas";
-import Menu from "../components/img/menu.png";
+import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
+import { FaHome, FaEnvelope, FaQuestionCircle, FaCog, FaBars, FaTimes } from "react-icons/fa";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-function NavSideBar() {
-  const [show, setShow] = useState(false);
+const NavSideBar = () => {
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-  const navLinks = {
-    Home: "/",
-    Info: "/info",
-    Contact: "/contact",
-    Tutorial: "/tutorial",
-    Help: "/help",
-    Settings: "/settings",
+  const toggleSidebar = () => {
+    setIsCollapsed(!isCollapsed);
   };
 
   return (
-    <>
-      <Button onClick={handleShow} className="rounded-0 h-100">
-        <img src={Menu} width={40} alt="menu" />
-      </Button>
+    <div
+      className={`d-flex flex-column bg-primary text-white p-3 ${isCollapsed ? "collapsed" : ""}`}
+      style={{
+        width: isCollapsed ? "80px" : "250px",
+        transition: "width 0.3s ease",
+        height: "100vh", // Zorgt ervoor dat de sidebar de volledige hoogte van het scherm heeft
+        position: "fixed", // Zorgt ervoor dat de sidebar vast blijft
+        top: 0,
+        left: 0,
+        bottom: 0,
+        zIndex: 1000,
+      }}
+    >
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        {!isCollapsed && <h3 className="text-center">Dashboard</h3>}
+        <button
+          className="btn btn-link text-white p-0 ms-auto"
+          onClick={toggleSidebar}
+          style={{ fontSize: "1.5rem" }}
+        >
+          {isCollapsed ? <FaBars /> : <FaTimes />}
+        </button>
+      </div>
 
-      <Offcanvas show={show} onHide={handleClose}>
-        <Offcanvas.Header closeButton>
-          <Offcanvas.Title>GeldManagmentApp</Offcanvas.Title>
-        </Offcanvas.Header>
-        <Offcanvas.Body className="d-flex flex-column">
-          {Object.entries(navLinks).map(([key, value]) => (
-            <Button
-              key={key}
-              href={value}
-              variant="link"
-              className="w-100 bg-primary text-white m-2 text-decoration-none fw-bold"
-            >
-              {key}
-            </Button>
-          ))}
-        </Offcanvas.Body>
-      </Offcanvas>
-    </>
+      <NavLink
+        to="/"
+        className="nav-link text-white py-2 d-flex align-items-center"
+        activeClassName="bg-white text-primary rounded"
+      >
+        <FaHome className="me-2" style={{ fontSize: "1.5rem" }} />
+        {!isCollapsed && <span>Home</span>}
+      </NavLink>
+      <NavLink
+        to="/contact"
+        className="nav-link text-white py-2 d-flex align-items-center"
+        activeClassName="bg-white text-primary rounded"
+      >
+        <FaEnvelope className="me-2" style={{ fontSize: "1.5rem" }} />
+        {!isCollapsed && <span>Contact</span>}
+      </NavLink>
+      <NavLink
+        to="/help"
+        className="nav-link text-white py-2 d-flex align-items-center"
+        activeClassName="bg-white text-primary rounded"
+      >
+        <FaQuestionCircle className="me-2" style={{ fontSize: "1.5rem" }} />
+        {!isCollapsed && <span>Help</span>}
+      </NavLink>
+      <NavLink
+        to="/settings"
+        className="nav-link text-white py-2 d-flex align-items-center"
+        activeClassName="bg-white text-primary rounded"
+      >
+        <FaCog className="me-2" style={{ fontSize: "1.5rem" }} />
+        {!isCollapsed && <span>Settings</span>}
+      </NavLink>
+    </div>
   );
-}
+};
 
 export default NavSideBar;
