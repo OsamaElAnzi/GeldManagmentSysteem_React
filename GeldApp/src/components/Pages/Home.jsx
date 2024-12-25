@@ -9,6 +9,15 @@ function Home() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [bedrag, setBedrag] = useState("");
+  const [soort, setSoort] = useState("");
+  const [omschrijving, setOmschrijving] = useState("");
+  const [biljetten, setBiljetten] = useState("");
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(bedrag, soort, omschrijving, biljetten);
+    handleClose();
+  }
   return (
     <>
       <Container className="d-flex flex-column">
@@ -32,23 +41,26 @@ function Home() {
             <Modal.Title>Modal heading</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Form>
+            <Form onSubmit={handleSubmit}>
+              <Form.Group className="mb-3" controlId="formBasicDatum" hidden>
+                <Form.Control type="date" placeholder="Datum" />
+              </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicBedrag">
-                <Form.Control type="text" placeholder="Bedrag" />
+                <Form.Control type="text" placeholder="Bedrag"  onChange={(e) => setBedrag(e.target.value)} required/>
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formBasicSoortTransactie">
-                <Form.Select>
-                    <option>Soort transactie</option>
+                <Form.Select  onChange={(e) => setSoort(e.target.value)} required>
+                    <option hidden>Soort transactie</option>
                     <option>INKOMEN</option>
                     <option>UITGAVEN</option>
                 </Form.Select>
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicOmschrijving">
-                <Form.Control type="text" placeholder="Omschrijving" />
+                <Form.Control type="text" placeholder="Omschrijving" onChange={(e) => setOmschrijving(e.target.value)} required/>
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicSoortBiljetten">
-                <Form.Select>
+                <Form.Select onChange={(e) => setBiljetten(e.target.value)}>
                     <option>Soort biljetten</option>
                     <option>5 EUR</option>
                     <option>10 EUR</option>
