@@ -16,7 +16,7 @@ function ModalSpaarDoel() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  const handleRest = () => setSpaardoel("");
   const handleSubmit = (e) => {
     e.preventDefault();
     const parsedSpaardoel = parseFloat(spaardoel);
@@ -32,8 +32,11 @@ function ModalSpaarDoel() {
 
   return (
     <>
-      <Button variant="success" className="w-100" onClick={handleShow}>
+      <Button variant="success" className="w-100 mb-3" onClick={handleShow}>
         Stel Spaar Doel In
+      </Button>
+      <Button variant="warning" type="submit" className="w-100" onClick={handleRest}>
+        Reset
       </Button>
 
       <Modal
@@ -58,9 +61,11 @@ function ModalSpaarDoel() {
                 required
               />
             </Form.Group>
-            <Button variant="primary" type="submit" disabled={!spaardoel}>
-              Opslaan
-            </Button>
+            <Form.Group className="mb-3">
+              <Button variant="primary" className="w-100" type="submit">
+                Opslaan
+              </Button>
+            </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
@@ -68,8 +73,11 @@ function ModalSpaarDoel() {
         </Modal.Footer>
       </Modal>
 
-      <DisplaySpaarDoelSettings spaardoel={spaardoel} update={update} setUpdate={setUpdate} />
-
+      <DisplaySpaarDoelSettings
+        spaardoel={spaardoel}
+        update={update}
+        setUpdate={setUpdate}
+      />
     </>
   );
 }
@@ -93,11 +101,12 @@ function DisplaySpaarDoelSettings({ spaardoel, update, setUpdate }) {
   );
 }
 
-
 export function Spaardoel({ spaardoel }) {
   return (
     <div>
-      <p className="display-6">{spaardoel ? `€${spaardoel}` : "Nog geen spaar doel ingesteld."}</p>
+      <p className="display-6">
+        {spaardoel ? `€${spaardoel}` : "Nog geen spaar doel ingesteld."}
+      </p>
     </div>
   );
 }
