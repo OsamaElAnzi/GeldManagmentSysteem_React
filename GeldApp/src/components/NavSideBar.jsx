@@ -4,7 +4,7 @@ import { FaHome, FaEnvelope, FaQuestionCircle, FaCog, FaBars, FaTimes } from "re
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const NavSideBar = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
 
   const toggleSidebar = () => {
     setIsCollapsed(!isCollapsed);
@@ -16,8 +16,8 @@ const NavSideBar = () => {
       style={{
         width: isCollapsed ? "80px" : "250px",
         transition: "width 0.3s ease",
-        height: "100vh", // Zorgt ervoor dat de sidebar de volledige hoogte van het scherm heeft
-        position: "fixed", // Zorgt ervoor dat de sidebar vast blijft
+        height: "100vh",
+        position: "fixed",
         top: 0,
         left: 0,
         bottom: 0,
