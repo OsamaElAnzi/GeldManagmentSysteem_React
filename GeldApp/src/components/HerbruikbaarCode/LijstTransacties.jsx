@@ -12,7 +12,6 @@ function LijstTransacties({ transacties }) {
     );
   }
 
-  // Sorteer de transacties op datum in oplopende volgorde
   const sortedTransactions = [...transacties].sort((a, b) => new Date(a.datum) - new Date(b.datum));
 
   return (

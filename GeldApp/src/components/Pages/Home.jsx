@@ -39,7 +39,7 @@ function Home() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (isNaN(bedrag)) {
+    if (isNaN(bedrag) && isNaN(soort)) {
       setErrorMessage("Bedrag moet een getal zijn.");
     } else {
       setErrorMessage("");
@@ -54,6 +54,7 @@ function Home() {
 
       setTransactions([...transactions, newTransaction]);
       setId(id + 1);
+      console.log(newTransaction);
       handleClose();
     }
   };
@@ -121,7 +122,7 @@ function Home() {
                 value={biljetten}
                 onChange={(e) => setBiljetten(e.target.value)}
               >
-                <option value="">Soort biljetten</option>
+                <option hidden>Soort biljetten</option>
                 <option>5 EUR</option>
                 <option>10 EUR</option>
                 <option>20 EUR</option>
