@@ -1,7 +1,15 @@
-import React from "react";
-import { Container, Row, Col, Card } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Spaardoel } from "./ModalSpaarDoel";
+import { Container, Row, Col, Card, Alert } from "react-bootstrap";
 
 function DisplayData() {
+  const [spaardoel, setSpaardoel] = useState("");
+
+  useEffect(() => {
+    const savedSpaardoel = localStorage.getItem("spaardoel");
+    setSpaardoel(savedSpaardoel ? JSON.parse(savedSpaardoel) : "");
+  }, []);
+
   return (
     <Container className="py-4">
       <Row className="text-center">
@@ -25,7 +33,9 @@ function DisplayData() {
           <Card className="shadow-sm border-0">
             <Card.Body>
               <h3 className="text-success">Spaardoel:</h3>
-              <h4 className="fw-bold">$1,000,000</h4>
+              <h4 className="fw-bold">
+                <Spaardoel spaardoel={spaardoel} />
+              </h4>
             </Card.Body>
           </Card>
         </Col>
