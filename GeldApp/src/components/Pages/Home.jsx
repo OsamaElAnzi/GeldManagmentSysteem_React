@@ -4,7 +4,6 @@ import DisplayData from "../HerbruikbaarCode/DisplayData";
 import LijstTransacties from "../HerbruikbaarCode/LijstTransacties";
 import { Container, Button, Modal, Form, Alert } from "react-bootstrap";
 
-// Helper function to get the current date
 function getDate() {
   const today = new Date();
   const date = today.getDate();
@@ -19,17 +18,18 @@ function Home() {
   const [soort, setSoort] = useState("");
   const [omschrijving, setOmschrijving] = useState("");
   const [biljetten, setBiljetten] = useState("");
-  const [transactions, setTransactions] = useState([]);
+  const [transactions, setTransactions] = useState(() => {
+    const savedTransactions = localStorage.getItem("transactions");
+    return savedTransactions ? JSON.parse(savedTransactions) : [];
+  });
   const [errorMessage, setErrorMessage] = useState("");
 
-  // Modal control handlers
   const handleClose = () => {
     resetForm();
     setShow(false);
   };
   const handleShow = () => setShow(true);
 
-  // Reset form fields
   const resetForm = () => {
     setBedrag("");
     setSoort("");
@@ -38,26 +38,15 @@ function Home() {
     setErrorMessage("");
   };
 
-  // Save transactions to localStorage whenever they change
   useEffect(() => {
     localStorage.setItem("transactions", JSON.stringify(transactions));
   }, [transactions]);
 
-  // Load transactions from localStorage on component mount
-  useEffect(() => {
-    const storedTransactions = localStorage.getItem("transactions");
-    if (storedTransactions) {
-      setTransactions(JSON.parse(storedTransactions));
-    }
-  }, []);
-
-  // Form submission handler
   const handleSubmit = (event) => {
     event.preventDefault();
 
     const parsedBedrag = parseFloat(bedrag);
 
-    // Validation
     if (isNaN(parsedBedrag) || parsedBedrag <= 0) {
       setErrorMessage("Bedrag moet een positief getal zijn.");
       return;
@@ -66,8 +55,6 @@ function Home() {
       setErrorMessage("Omschrijving moet minstens 3 karakters lang zijn.");
       return;
     }
-
-    setErrorMessage("");
 
     const newTransaction = {
       id: transactions.length > 0 ? transactions[transactions.length - 1].id + 1 : 1,
@@ -95,7 +82,6 @@ function Home() {
         Voeg transactie toe
       </Button>
 
-      {/* Modal for adding a transaction */}
       <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
         <Modal.Header closeButton>
           <Modal.Title>Voeg Transactie Toe</Modal.Title>
@@ -105,7 +91,7 @@ function Home() {
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicBedrag">
               <Form.Control
-                type="text"
+                type="number"
                 placeholder="Bedrag"
                 value={bedrag}
                 onChange={(e) => setBedrag(e.target.value)}
@@ -163,7 +149,6 @@ function Home() {
         </Modal.Footer>
       </Modal>
 
-      {/* Transaction list */}
       <LijstTransacties transacties={transactions} />
     </Container>
   );
