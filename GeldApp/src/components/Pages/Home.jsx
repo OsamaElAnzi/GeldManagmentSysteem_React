@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Grafiek from "../HerbruikbaarCode/Grafiek";
 import DisplayData from "../HerbruikbaarCode/DisplayData";
 import LijstTransacties from "../HerbruikbaarCode/LijstTransacties";
 import { Container, Button, Modal, Form, Alert } from "react-bootstrap";
 
+// Helper function to get the current date
 function getDate() {
   const today = new Date();
+  const date = today.getDate();
   const month = today.getMonth() + 1;
   const year = today.getFullYear();
-  const date = today.getDate();
   return `${date}/${month}/${year}`;
 }
 
@@ -18,17 +19,17 @@ function Home() {
   const [soort, setSoort] = useState("");
   const [omschrijving, setOmschrijving] = useState("");
   const [biljetten, setBiljetten] = useState("");
-  const [id, setId] = useState(1);
   const [transactions, setTransactions] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
 
+  // Modal control handlers
   const handleClose = () => {
     resetForm();
     setShow(false);
   };
-
   const handleShow = () => setShow(true);
 
+  // Reset form fields
   const resetForm = () => {
     setBedrag("");
     setSoort("");
@@ -37,26 +38,48 @@ function Home() {
     setErrorMessage("");
   };
 
+  // Save transactions to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem("transactions", JSON.stringify(transactions));
+  }, [transactions]);
+
+  // Load transactions from localStorage on component mount
+  useEffect(() => {
+    const storedTransactions = localStorage.getItem("transactions");
+    if (storedTransactions) {
+      setTransactions(JSON.parse(storedTransactions));
+    }
+  }, []);
+
+  // Form submission handler
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (isNaN(bedrag) && isNaN(soort)) {
-      setErrorMessage("Bedrag moet een getal zijn.");
-    } else {
-      setErrorMessage("");
-      const newTransaction = {
-        id,
-        datum: getDate(),
-        type: soort,
-        bedrag: parseFloat(bedrag),
-        omschrijving,
-        biljetten,
-      };
 
-      setTransactions([...transactions, newTransaction]);
-      setId(id + 1);
-      console.log(newTransaction);
-      handleClose();
+    const parsedBedrag = parseFloat(bedrag);
+
+    // Validation
+    if (isNaN(parsedBedrag) || parsedBedrag <= 0) {
+      setErrorMessage("Bedrag moet een positief getal zijn.");
+      return;
     }
+    if (omschrijving.trim().length < 3) {
+      setErrorMessage("Omschrijving moet minstens 3 karakters lang zijn.");
+      return;
+    }
+
+    setErrorMessage("");
+
+    const newTransaction = {
+      id: transactions.length > 0 ? transactions[transactions.length - 1].id + 1 : 1,
+      datum: getDate(),
+      type: soort,
+      bedrag: parsedBedrag,
+      omschrijving,
+      biljetten,
+    };
+
+    setTransactions([...transactions, newTransaction]);
+    handleClose();
   };
 
   return (
@@ -71,21 +94,15 @@ function Home() {
       >
         Voeg transactie toe
       </Button>
-      <Modal
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
-      >
+
+      {/* Modal for adding a transaction */}
+      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
         <Modal.Header closeButton>
           <Modal.Title>Voeg Transactie Toe</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
           <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="formBasicNaam">
-              <Form.Control type="text" value={id} hidden disabled />
-            </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicBedrag">
               <Form.Control
                 type="text"
@@ -145,6 +162,8 @@ function Home() {
           <Form.Text>Voeg hier je inkomen of uitgaven aan toe.</Form.Text>
         </Modal.Footer>
       </Modal>
+
+      {/* Transaction list */}
       <LijstTransacties transacties={transactions} />
     </Container>
   );

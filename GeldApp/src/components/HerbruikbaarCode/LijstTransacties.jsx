@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Alert, Table, Container } from 'react-bootstrap';
 
 function LijstTransacties({ transacties }) {
