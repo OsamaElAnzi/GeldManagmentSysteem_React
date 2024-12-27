@@ -26,7 +26,7 @@ function ModalSpaarDoel() {
     }
     setUpdate("Spaardoel ingesteld.");
     setErrorMessage("");
-    setSpaardoel(parsedSpaardoel); // Spaart het numerieke spaardoel
+    setSpaardoel(parsedSpaardoel);
     handleClose();
   };
 

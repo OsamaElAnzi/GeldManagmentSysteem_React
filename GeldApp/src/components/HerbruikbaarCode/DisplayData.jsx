@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Spaardoel } from "./ModalSpaarDoel";
+import Vermogen from "./Vermogen";
 import { Container, Row, Col, Card, Alert } from "react-bootstrap";
 
-function DisplayData() {
+function DisplayData({ transactions }) {
   const [spaardoel, setSpaardoel] = useState("");
 
   useEffect(() => {
@@ -17,7 +18,7 @@ function DisplayData() {
           <Card className="shadow-sm border-0">
             <Card.Body>
               <h3 className="text-primary">Vermogen</h3>
-              <h4 className="fw-bold">$100,000</h4>
+              <Vermogen transactions={transactions} />
             </Card.Body>
           </Card>
         </Col>
