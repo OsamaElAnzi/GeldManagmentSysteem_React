@@ -1,15 +1,18 @@
 import React from "react";
 
 function Vermogen({ transactions }) {
-  const berekendeVermogen = transactions.reduce(
-    (total, transaction) => total + transaction.bedrag,
-    0
-  );
+  const berekendeVermogen = transactions.reduce((total, transaction) => {
+    if (transaction.type === "Inkomsten") {
+      return total + transaction.bedrag;
+    } else if (transaction.type === "Uitgaven") {
+      return total - transaction.bedrag;
+    }
+    return total;
+  }, 0);
 
   return (
     <>
-      <h1>Vermogen</h1>
-      <h2>€{berekendeVermogen.toFixed(2)}</h2>
+      <p className="display-6">€{berekendeVermogen.toFixed(2)}</p>
     </>
   );
 }
