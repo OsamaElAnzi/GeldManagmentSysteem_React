@@ -25,7 +25,9 @@ function DisplayData() {
           <Card className="shadow-sm border-0">
             <Card.Body>
               <h3 className="text-primary">Vermogen</h3>
-              <h4 className="display-6">€{totalVermogen}</h4>
+              <h4 className={`display-6 ${totalVermogen < 0 ? "text-danger" : ""}`}>
+                €{totalVermogen}
+              </h4>
             </Card.Body>
           </Card>
         </Col>
