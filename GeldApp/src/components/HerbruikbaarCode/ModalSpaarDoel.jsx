@@ -107,9 +107,9 @@ function DisplaySpaarDoelSettings({ spaardoel, update, setUpdate }) {
 export function Spaardoel({ spaardoel }) {
   return (
     <div>
-      <p className="display-6">
+      <h4 className="display-6">
         {spaardoel ? `€${spaardoel.toFixed(2)}` : "Geen spaardoel"}
-      </p>
+      </h4>
     </div>
   );
 }
