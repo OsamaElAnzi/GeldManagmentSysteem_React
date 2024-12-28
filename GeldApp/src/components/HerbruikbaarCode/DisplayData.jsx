@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { Vermogen } from "./ModalVermogen";
+import { Spaardoel } from "./ModalSpaarDoel";
 
 function DisplayData() {
   const [spaardoel, setSpaardoel] = useState(0);
@@ -36,7 +37,7 @@ function DisplayData() {
             <Card.Body>
               <h3 className="text-warning">Nog te gaan:</h3>
               <h4 className="display-6">
-                €{nogTeGaan > 0 ? nogTeGaan.toFixed(2) : "Doel bereikt!"}
+                {nogTeGaan > 0 ? "€" + nogTeGaan.toFixed(2) : "Doel bereikt!"}
               </h4>
             </Card.Body>
           </Card>
@@ -45,7 +46,7 @@ function DisplayData() {
           <Card className="shadow-sm border-0">
             <Card.Body>
               <h3 className="text-success">Spaardoel:</h3>
-              <h4 className="display-6">€{spaardoel.toFixed(2)}</h4>
+              <Spaardoel spaardoel={spaardoel} />
             </Card.Body>
           </Card>
         </Col>

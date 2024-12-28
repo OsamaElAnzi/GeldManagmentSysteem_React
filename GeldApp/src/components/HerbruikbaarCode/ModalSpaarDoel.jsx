@@ -108,7 +108,7 @@ export function Spaardoel({ spaardoel }) {
   return (
     <div>
       <p className="display-6">
-        {spaardoel ? `€${spaardoel}` : "Nog geen spaar doel ingesteld."}
+        {spaardoel ? `€${spaardoel.toFixed(2)}` : "Geen spaardoel"}
       </p>
     </div>
   );

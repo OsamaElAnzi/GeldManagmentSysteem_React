@@ -14,7 +14,7 @@ function LijstTransacties({ transacties = [] }) {
     (a, b) => new Date(a.datum) - new Date(b.datum)
   );
 
-  const total = Vermogen({ transactions: sortedTransactions });
+  const total = Vermogen({ transactions: sortedTransactions })? Vermogen({ transactions: sortedTransactions }) : 0;
 
   return (
     <Container className="mt-4">
