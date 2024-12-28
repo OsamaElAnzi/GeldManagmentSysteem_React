@@ -16,7 +16,10 @@ function ModalSpaarDoel() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const handleRest = () => setSpaardoel("");
+  const handleRest = () => {
+    setSpaardoel("")
+    setUpdate("Spaardoel gereset");
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     const parsedSpaardoel = parseFloat(spaardoel);
