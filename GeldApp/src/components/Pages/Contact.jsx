@@ -68,13 +68,13 @@ function Contact() {
               <div className="p-3">
                 <h5 className="text-secondary mb-3">Onze gegevens</h5>
                 <p className="mb-1">
-                  <strong>Adres:</strong> Example Street 123, 1000 AA Amsterdam
+                  <strong>Adres:</strong> Utrecht, Overvecht
                 </p>
                 <p className="mb-1">
-                  <strong>Telefoon:</strong> +31 20 123 4567
+                  <strong>Telefoon:</strong> +31 6 85493708
                 </p>
                 <p className="mb-1">
-                  <strong>Email:</strong> contact@voorbeeld.nl
+                  <strong>Email:</strong> osamaelanzi0@gmail.com
                 </p>
                 <hr className="my-4" />
                 <blockquote className="blockquote text-muted">

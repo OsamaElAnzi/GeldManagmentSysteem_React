@@ -1,19 +1,18 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Card, Button, Form, Accordion } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 
 function Help() {
   const [query, setQuery] = useState("");
 
   const handleSearch = () => {
     alert(`Zoeken naar: ${query}`);
-    // Voeg zoekfunctionaliteit hier toe
   };
 
   return (
     <Container className="py-4">
       <h1 className="text-center mb-4">Help & Ondersteuning</h1>
 
-      {/* Zoeken Sectie */}
       <Row className="mb-4">
         <Col>
           <Form.Control
@@ -29,16 +28,19 @@ function Help() {
           </Button>
         </Col>
       </Row>
-
-      {/* Veelgestelde Vragen (FAQ) */}
       <Row className="mb-4">
         <Col>
           <Accordion>
             <Card className="shadow-sm mb-3">
               <Accordion.Item eventKey="0">
-                <Accordion.Header>Hoe reset ik mijn wachtwoord?</Accordion.Header>
+                <Accordion.Header>Hoe stel ik mijn spaardoel in?</Accordion.Header>
                 <Accordion.Body>
-                  Om je wachtwoord te resetten, klik je op de 'Wachtwoord vergeten' link op de inlogpagina en volg je de stappen om een nieuw wachtwoord in te stellen.
+                  Om je spaardoel in te stellen ga naar <br/>
+                    1.Dashboard<br />
+                    2.Settings<br/>
+                    3.(Knop) Stel spaardoel in<br/>
+                    4.Spaardoel Instellen`.<br/>
+                  ALs je deze navigatie kunt volgen dan vind je hoe je het instelt.
                 </Accordion.Body>
               </Accordion.Item>
             </Card>
@@ -47,24 +49,25 @@ function Help() {
               <Accordion.Item eventKey="1">
                 <Accordion.Header>Wat moet ik doen als ik technische problemen ondervind?</Accordion.Header>
                 <Accordion.Body>
-                  Als je technische problemen ondervindt, probeer dan eerst je browser te vernieuwen of de cache te wissen. Als het probleem blijft, neem dan contact op met onze klantenservice.
+                  Hier volgen de oplossingen die wellicht je probleem kunne oplossen.<br />
+                  1. Herstart de applicatie<br/>
+                  2. Check de Console via F12(inspecteren)<br/>
+                  3. Neem contact op met <NavLink to="/contact">onze support</NavLink>
                 </Accordion.Body>
               </Accordion.Item>
             </Card>
 
             <Card className="shadow-sm mb-3">
               <Accordion.Item eventKey="2">
-                <Accordion.Header>Hoe kan ik mijn profiel bewerken?</Accordion.Header>
+                <Accordion.Header>Hoe kan ik aanpassingen brengen bij verkeerde ingevoerde transacties?</Accordion.Header>
                 <Accordion.Body>
-                  Ga naar de instellingenpagina en klik op 'Profiel bewerken' om je gegevens bij te werken.
+                  Ga naar de instellingenpagina en klik op 'Vermogen' om je gegevens bij te werken.
                 </Accordion.Body>
               </Accordion.Item>
             </Card>
           </Accordion>
         </Col>
       </Row>
-
-      {/* Contactinformatie Sectie */}
       <Row className="mb-4">
         <Col>
           <Card className="shadow-sm">
@@ -74,15 +77,14 @@ function Help() {
                 Als je vraag niet beantwoord wordt in de veelgestelde vragen, neem dan gerust contact met ons op:
               </Card.Text>
               <ul>
-                <li><strong>Email:</strong> support@jouwdomein.com</li>
-                <li><strong>Telefoon:</strong> +123 456 789</li>
+                <li><strong>Email:</strong> osamaelanzi0@gmail.com</li>
+                <li><strong>WhatsApp:</strong>+31 6 85493708</li>
               </ul>
             </Card.Body>
           </Card>
         </Col>
       </Row>
 
-      {/* Extra Bronnen Sectie */}
       <Row>
         <Col>
           <Card className="shadow-sm">
