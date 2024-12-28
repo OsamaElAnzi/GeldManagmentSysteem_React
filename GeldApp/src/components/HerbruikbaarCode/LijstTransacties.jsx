@@ -1,18 +1,20 @@
 import React from "react";
 import { Alert, Table, Container } from "react-bootstrap";
-import { calculateSaldo, sortTransactions } from "./utils";
 
 function LijstTransacties({ transacties = [] }) {
-  if (transacties.length === 0) {
-    return (
-      <Container className="text-center mt-4">
-        <Alert variant="info">Er zijn nog geen transacties.</Alert>
-      </Container>
-    );
-  }
+    if (transacties.length === 0) {
+      return (
+        <Container className="text-center mt-4">
+          <Alert variant="info">Er zijn nog geen transacties.</Alert>
+        </Container>
+      );
+    }
 
-  const sortedTransactions = sortTransactions(transacties);
-  const total = calculateSaldo(sortedTransactions);
+  const sortedTransactions = [...transacties].sort(
+    (a, b) => new Date(a.datum) - new Date(b.datum)
+  );
+
+  const total = Vermogen({ transactions: sortedTransactions });
 
   return (
     <Container className="mt-4">
@@ -32,7 +34,7 @@ function LijstTransacties({ transacties = [] }) {
         <tbody>
           {sortedTransactions.map((transactie) => (
             <tr key={transactie.id}>
-              <td>{new Date(transactie.datum).toLocaleDateString("nl-NL")}</td>
+              <td>{transactie.datum}</td>
               <td>{transactie.type}</td>
               <td>€{transactie.bedrag.toFixed(2)}</td>
               <td>{transactie.biljetten || "Onbekend"}</td>
@@ -44,4 +46,19 @@ function LijstTransacties({ transacties = [] }) {
   );
 }
 
+export function Vermogen({ transactions = [] }) {
+  const totalInkomen = transactions
+    .filter((t) => t.type === "INKOMEN")
+    .reduce((sum, t) => sum + t.bedrag, 0);
+
+  const totalUitgaven = transactions
+    .filter((t) => t.type === "UITGAVEN")
+    .reduce((sum, t) => sum + t.bedrag, 0);
+
+  const totalSaldo = (totalInkomen - totalUitgaven).toFixed(2);
+  return totalSaldo;
+}
+export function Test() {
+  return totalSaldo;
+}
 export default LijstTransacties;

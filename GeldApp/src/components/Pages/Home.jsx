@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { Container, Button, Modal, Form } from "react-bootstrap";
-import { v4 as uuidv4 } from 'uuid';
+import React, { useEffect, useState } from "react";
 import Grafiek from "../HerbruikbaarCode/Grafiek";
 import DisplayData from "../HerbruikbaarCode/DisplayData";
 import LijstTransacties from "../HerbruikbaarCode/LijstTransacties";
-import TransactionForm from "../HerbruikbaarCode/TransactionForm";
+import { Container, Button, Modal, Form, Alert } from "react-bootstrap";
 
 function getDate() {
   const today = new Date();
-  const date = String(today.getDate()).padStart(2, "0");
-  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const date = today.getDate();
+  const month = today.getMonth() + 1;
   const year = today.getFullYear();
   return `${date}/${month}/${year}`;
 }
@@ -21,13 +19,8 @@ function Home() {
   const [omschrijving, setOmschrijving] = useState("");
   const [biljetten, setBiljetten] = useState("");
   const [transactions, setTransactions] = useState(() => {
-    try {
-      const savedTransactions = localStorage.getItem("transactions");
-      return savedTransactions ? JSON.parse(savedTransactions) : [];
-    } catch (e) {
-      console.error("Error loading transactions from localStorage:", e);
-      return [];
-    }
+    const savedTransactions = localStorage.getItem("transactions");
+    return savedTransactions ? JSON.parse(savedTransactions) : [];
   });
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -64,7 +57,7 @@ function Home() {
     }
 
     const newTransaction = {
-      id: uuidv4(),
+      id: transactions.length > 0 ? transactions[transactions.length - 1].id + 1 : 1,
       datum: getDate(),
       type: soort,
       bedrag: parsedBedrag,
@@ -80,32 +73,80 @@ function Home() {
     <Container className="d-flex flex-column">
       <DisplayData />
       <Grafiek />
-      <Button variant="primary" className="mt-3" onClick={handleShow}>Voeg transactie toe</Button>
+      <Button
+        variant="primary"
+        className="mt-3"
+        onClick={handleShow}
+        data-bs-toggle="modal"
+      >
+        Voeg transactie toe
+      </Button>
 
       <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
         <Modal.Header closeButton>
           <Modal.Title>Voeg Transactie Toe</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <TransactionForm
-            bedrag={bedrag}
-            setBedrag={setBedrag}
-            soort={soort}
-            setSoort={setSoort}
-            omschrijving={omschrijving}
-            setOmschrijving={setOmschrijving}
-            biljetten={biljetten}
-            setBiljetten={setBiljetten}
-            errorMessage={errorMessage}
-            handleSubmit={handleSubmit}
-          />
+          {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
+          <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3" controlId="formBasicBedrag">
+              <Form.Control
+                type="number"
+                placeholder="Bedrag"
+                value={bedrag}
+                onChange={(e) => setBedrag(e.target.value)}
+                required
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicSoortTransactie">
+              <Form.Select
+                value={soort}
+                onChange={(e) => setSoort(e.target.value)}
+                required
+              >
+                <option value="" hidden>
+                  Soort transactie
+                </option>
+                <option>INKOMEN</option>
+                <option>UITGAVEN</option>
+              </Form.Select>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicOmschrijving">
+              <Form.Control
+                type="text"
+                placeholder="Omschrijving"
+                value={omschrijving}
+                onChange={(e) => setOmschrijving(e.target.value)}
+                required
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicSoortBiljetten">
+              <Form.Select
+                value={biljetten}
+                onChange={(e) => setBiljetten(e.target.value)}
+              >
+                <option hidden>Soort biljetten</option>
+                <option>5 EUR</option>
+                <option>10 EUR</option>
+                <option>20 EUR</option>
+                <option>50 EUR</option>
+                <option>100 EUR</option>
+                <option>200 EUR</option>
+                <option>500 EUR</option>
+              </Form.Select>
+            </Form.Group>
+            <Button
+              variant="primary"
+              type="submit"
+              disabled={!bedrag || !soort || !omschrijving}
+            >
+              Toevoegen
+            </Button>
+          </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Form.Text className="text-muted">
-            Voeg hier je inkomen of uitgaven aan toe.
-          </Form.Text>
+          <Form.Text>Voeg hier je inkomen of uitgaven aan toe.</Form.Text>
         </Modal.Footer>
-
       </Modal>
 
       <LijstTransacties transacties={transactions} />
