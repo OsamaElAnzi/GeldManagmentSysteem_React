@@ -14,14 +14,9 @@ function LijstTransacties({ transacties = [] }) {
     (a, b) => new Date(a.datum) - new Date(b.datum)
   );
 
-  const total = Vermogen({ transactions: sortedTransactions })? Vermogen({ transactions: sortedTransactions }) : 0;
-
   return (
     <Container className="mt-4">
       <h2 className="text-center mb-4">Transacties</h2>
-      <h4 className="text-center">
-        Totaal Saldo: <span className="text-success">€{total}</span>
-      </h4>
       <Table striped bordered hover responsive>
         <thead className="table-dark">
           <tr>
@@ -37,7 +32,9 @@ function LijstTransacties({ transacties = [] }) {
               <td>{transactie.datum}</td>
               <td>{transactie.type}</td>
               <td
-              className={transactie.type === "INKOMEN"? "text-success" : "text-danger"}
+                className={
+                  transactie.type === "INKOMEN" ? "text-success" : "text-danger"
+                }
               >
                 €{transactie.bedrag.toFixed(2)}
               </td>
