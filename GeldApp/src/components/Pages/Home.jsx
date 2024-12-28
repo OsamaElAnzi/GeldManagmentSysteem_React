@@ -71,7 +71,7 @@ function Home() {
 
   return (
     <Container className="d-flex flex-column">
-      <DisplayData transactions={transactions} />
+      <DisplayData />
       <Grafiek />
       <Button
         variant="primary"

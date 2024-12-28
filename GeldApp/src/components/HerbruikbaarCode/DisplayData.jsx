@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Vermogen from "./Vermogen";
-import NogTeGaan from "./NogTeGaan";
 import { Spaardoel } from "./ModalSpaarDoel";
 import { Container, Row, Col, Card } from "react-bootstrap";
 
-function DisplayData({ transactions = [] }) {
+function DisplayData() {
   const [spaardoel, setSpaardoel] = useState("");
 
   useEffect(() => {
@@ -12,16 +10,6 @@ function DisplayData({ transactions = [] }) {
     setSpaardoel(savedSpaardoel ? JSON.parse(savedSpaardoel) : "");
   }, []);
 
-  const berekendeVermogen = transactions.reduce((total, transaction) => {
-    if (transaction.type === "Inkomsten") {
-      return total + transaction.bedrag;
-    } else if (transaction.type === "Uitgaven") {
-      return total - transaction.bedrag;
-    }
-    return total;
-  }, 0);
-
-  const remainingAmount = spaardoel ? spaardoel - berekendeVermogen : null;
 
   return (
     <Container className="py-4">
@@ -30,7 +18,6 @@ function DisplayData({ transactions = [] }) {
           <Card className="shadow-sm border-0">
             <Card.Body>
               <h3 className="text-primary">Vermogen</h3>
-              <Vermogen transactions={transactions} />
             </Card.Body>
           </Card>
         </Col>
@@ -38,7 +25,6 @@ function DisplayData({ transactions = [] }) {
           <Card className="shadow-sm border-0">
             <Card.Body>
               <h3 className="text-warning">Nog te gaan:</h3>
-              <NogTeGaan remainingAmount={remainingAmount} />
             </Card.Body>
           </Card>
         </Col>

@@ -1,5 +1,6 @@
 import React from "react";
 import ModalSpaarDoel from "../HerbruikbaarCode/ModalSpaarDoel";
+import ModalVermogen from "../HerbruikbaarCode/ModalVermogen";
 import { Card, Container, Row, Col } from "react-bootstrap";
 
 function Settings() {
@@ -29,6 +30,7 @@ function Settings() {
               <Card.Text className="text-center">
                 Hier kan je je vermogen inzien en bewerken.
               </Card.Text>
+              <ModalVermogen />
             </Card.Body>
           </Card>
         </Col>
