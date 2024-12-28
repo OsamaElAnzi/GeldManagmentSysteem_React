@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Spaardoel } from "./ModalSpaarDoel";
 import { Container, Row, Col, Card } from "react-bootstrap";
+import { calculateSaldo, sortTransactions } from "./utils";
 
-function DisplayData() {
+function DisplayData({ transactions = [] }) {
   const [spaardoel, setSpaardoel] = useState("");
 
   useEffect(() => {
@@ -10,6 +10,9 @@ function DisplayData() {
     setSpaardoel(savedSpaardoel ? JSON.parse(savedSpaardoel) : "");
   }, []);
 
+  const sortedTransactions = sortTransactions(transactions);
+  const total = calculateSaldo(sortedTransactions);
+  const nogTeGaan = spaardoel ? (spaardoel - total).toFixed(2) : "N/A";
 
   return (
     <Container className="py-4">
@@ -18,6 +21,7 @@ function DisplayData() {
           <Card className="shadow-sm border-0">
             <Card.Body>
               <h3 className="text-primary">Vermogen</h3>
+              <h4 className="fw-bold">€{total}</h4>
             </Card.Body>
           </Card>
         </Col>
@@ -25,6 +29,7 @@ function DisplayData() {
           <Card className="shadow-sm border-0">
             <Card.Body>
               <h3 className="text-warning">Nog te gaan:</h3>
+              <h4 className="fw-bold">€{nogTeGaan}</h4>
             </Card.Body>
           </Card>
         </Col>
@@ -32,9 +37,7 @@ function DisplayData() {
           <Card className="shadow-sm border-0">
             <Card.Body>
               <h3 className="text-success">Spaardoel:</h3>
-              <h4 className="fw-bold">
-                <Spaardoel spaardoel={spaardoel} />
-              </h4>
+              <h4 className="fw-bold">€{spaardoel || "Onbekend"}</h4>
             </Card.Body>
           </Card>
         </Col>

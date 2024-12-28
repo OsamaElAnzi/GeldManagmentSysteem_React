@@ -1,12 +1,14 @@
-import React from "react";
-import LijstTransacties from "./LijstTransacties";
+import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
+import { calculateSaldo } from "./utils";
 
 function ModalVermogen({ transacties = [] }) {
-  const [show, setShow] = React.useState(false);
+  const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const vermogenTotaal = calculateSaldo(transacties);
 
   return (
     <div>
@@ -19,7 +21,7 @@ function ModalVermogen({ transacties = [] }) {
           <Modal.Title>Transacties Overzicht</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <LijstTransacties transacties={transacties} />
+          <h4>Totaal Vermogen: €{vermogenTotaal}</h4>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
@@ -27,6 +29,7 @@ function ModalVermogen({ transacties = [] }) {
           </Button>
         </Modal.Footer>
       </Modal>
+      <h2>Vermogen: €{parseFloat(vermogenTotaal).toLocaleString()}</h2>
     </div>
   );
 }
