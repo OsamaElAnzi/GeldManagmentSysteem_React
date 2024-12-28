@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ModalSpaarDoel from "../HerbruikbaarCode/ModalSpaarDoel";
 import ModalVermogen from "../HerbruikbaarCode/ModalVermogen";
 import { Card, Container, Row, Col } from "react-bootstrap";
 
 function Settings() {
+  const [transacties, setTransacties] = useState([]);
+
+  useEffect(() => {
+    const savedTransacties = localStorage.getItem("transactions");
+    setTransacties(savedTransacties ? JSON.parse(savedTransacties) : []);
+  }, []);
+
   return (
     <Container className="py-4">
       <h3 className="text-center mb-4">Instellingen</h3>
@@ -30,7 +37,7 @@ function Settings() {
               <Card.Text className="text-center">
                 Hier kan je je vermogen inzien en bewerken.
               </Card.Text>
-              <ModalVermogen />
+              <ModalVermogen transacties={transacties} />
             </Card.Body>
           </Card>
         </Col>
