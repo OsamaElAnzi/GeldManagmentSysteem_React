@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ModalSpaarDoel from "../HerbruikbaarCode/ModalSpaarDoel";
 import ModalVermogen from "../HerbruikbaarCode/ModalVermogen";
+import ModalBiljetten from "../HerbruikbaarCode/ModalBiljetten";
 import { Card, Container, Row, Col, Button, Alert } from "react-bootstrap";
 
 function Settings() {
@@ -64,8 +65,9 @@ function Settings() {
           </Card.Header>
           <Card.Body>
             <Card.Text className="text-center">
-              Hier kan je je transacties bekijken en bewerken.
+              Hier kan je je biljetten overzicht inzien.
             </Card.Text>
+            <ModalBiljetten />
           </Card.Body>
         </Card>
         </Col>
@@ -75,3 +77,8 @@ function Settings() {
 }
 
 export default Settings;
+// {sortedTransactions.map((transaction) =>(
+//   <div key={transaction.id}>
+//     <p>{transaction.aantalBiljetten}</p>
+//   </div>
+// ))}
