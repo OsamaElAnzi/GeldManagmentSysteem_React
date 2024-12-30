@@ -18,6 +18,7 @@ function Home() {
   const [soort, setSoort] = useState("");
   const [omschrijving, setOmschrijving] = useState("");
   const [biljetten, setBiljetten] = useState("");
+  const [aantalBiljetten, setAantalBiljetten] = useState(0);
   const [transactions, setTransactions] = useState(() => {
     const savedTransactions = localStorage.getItem("transactions");
     return savedTransactions ? JSON.parse(savedTransactions) : [];
@@ -35,6 +36,7 @@ function Home() {
     setSoort("");
     setOmschrijving("");
     setBiljetten("");
+    setAantalBiljetten(0);
     setErrorMessage("");
   };
 
@@ -44,9 +46,11 @@ function Home() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
+    const parsedBiljet = parseInt(biljetten);
     const parsedBedrag = parseFloat(bedrag);
-
+    function countAmountBiljetten(parsedBedrag, parsedBiljet) {
+      return Math.floor(parsedBedrag / parsedBiljet);
+    }
     if (isNaN(parsedBedrag) || parsedBedrag <= 0) {
       setErrorMessage("Bedrag moet een positief getal zijn.");
       return;
@@ -55,14 +59,14 @@ function Home() {
       setErrorMessage("Omschrijving moet minstens 3 karakters lang zijn.");
       return;
     }
-
     const newTransaction = {
       id: transactions.length > 0 ? transactions[transactions.length - 1].id + 1 : 1,
       datum: getDate(),
       type: soort,
       bedrag: parsedBedrag,
       omschrijving,
-      biljetten,
+      biljetten: parsedBiljet,
+      aantalBiljetten: countAmountBiljetten(parsedBedrag, parsedBiljet)
     };
 
     setTransactions([...transactions, newTransaction]);
@@ -126,13 +130,13 @@ function Home() {
                 onChange={(e) => setBiljetten(e.target.value)}
               >
                 <option hidden>Soort biljetten</option>
-                <option>5 EUR</option>
-                <option>10 EUR</option>
-                <option>20 EUR</option>
-                <option>50 EUR</option>
-                <option>100 EUR</option>
-                <option>200 EUR</option>
-                <option>500 EUR</option>
+                <option value={5}>5 EUR</option>
+                <option value={10}>10 EUR</option>
+                <option value={20}>20 EUR</option>
+                <option value={50}>50 EUR</option>
+                <option value={100}>100 EUR</option>
+                <option value={200}>200 EUR</option>
+                <option value={500}>500 EUR</option>
               </Form.Select>
             </Form.Group>
             <Button

@@ -24,6 +24,7 @@ function LijstTransacties({ transacties = [] }) {
             <th>Type</th>
             <th>Bedrag</th>
             <th>BiljetSoort</th>
+            <th>AantalBiljetten</th>
           </tr>
         </thead>
         <tbody>
@@ -39,6 +40,7 @@ function LijstTransacties({ transacties = [] }) {
                 €{transactie.bedrag.toFixed(2)}
               </td>
               <td>{transactie.biljetten || "Onbekend"}</td>
+              <td>{transactie.aantalBiljetten || "Onbekend"}</td>
             </tr>
           ))}
         </tbody>

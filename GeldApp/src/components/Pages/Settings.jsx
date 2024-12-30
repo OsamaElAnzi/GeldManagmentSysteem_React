@@ -57,6 +57,18 @@ function Settings() {
             </Card.Body>
           </Card>
         </Col>
+        <Col>
+        <Card>
+          <Card.Header className="bg-info text-white text-center display-6">
+            Biljetten Overzicht
+          </Card.Header>
+          <Card.Body>
+            <Card.Text className="text-center">
+              Hier kan je je transacties bekijken en bewerken.
+            </Card.Text>
+          </Card.Body>
+        </Card>
+        </Col>
       </Row>
     </Container>
   );

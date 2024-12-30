@@ -16,7 +16,7 @@ function ModalSpaarDoel() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const handleRest = () => {
+  const handleRestSpaardoel = () => {
     setSpaardoel("")
     setUpdate("Spaardoel gereset");
   };
@@ -38,7 +38,7 @@ function ModalSpaarDoel() {
       <Button variant="success" className="w-100 mb-3" onClick={handleShow}>
         Stel Spaar Doel In
       </Button>
-      <Button variant="warning" type="submit" className="w-100" onClick={handleRest}>
+      <Button variant="warning" type="submit" className="w-100" onClick={handleRestSpaardoel}>
         Reset
       </Button>
 
@@ -108,7 +108,7 @@ export function Spaardoel({ spaardoel }) {
   return (
     <div>
       <h4 className="display-6">
-        {spaardoel ? `€${spaardoel.toFixed(2)}` : "Geen spaardoel"}
+        {spaardoel ? `€${spaardoel}` : "Geen spaardoel"}
       </h4>
     </div>
   );
