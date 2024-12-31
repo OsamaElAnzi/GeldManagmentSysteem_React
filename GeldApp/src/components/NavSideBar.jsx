@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { FaHome, FaEnvelope, FaQuestionCircle, FaCog, FaBars, FaTimes } from "react-icons/fa";
+import { IoStatsChart } from "react-icons/io5";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const NavSideBar = () => {
@@ -52,6 +53,14 @@ const NavSideBar = () => {
         {!isCollapsed && <span>Contact</span>}
       </NavLink>
       <NavLink
+        to="/statestiek"
+        className="nav-link text-white py-2 d-flex align-items-center"
+        activeClassName="bg-white text-primary rounded"
+      >
+        <IoStatsChart className="me-2" style={{ fontSize: "1.5rem" }} />
+        {!isCollapsed && <span>Statestiek</span>}
+      </NavLink>
+      <NavLink
         to="/help"
         className="nav-link text-white py-2 d-flex align-items-center"
         activeClassName="bg-white text-primary rounded"
@@ -65,7 +74,7 @@ const NavSideBar = () => {
         activeClassName="bg-white text-primary rounded"
       >
         <FaCog className="me-2" style={{ fontSize: "1.5rem" }} />
-        {!isCollapsed && <span>Settings</span>}
+        {!isCollapsed && <span>Instellingen</span>}
       </NavLink>
     </div>
   );

@@ -7,7 +7,7 @@ import { Card, Container, Row, Col, Button, Alert } from "react-bootstrap";
 function Settings() {
   const [transacties, setTransacties] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
-    const [showError, setShowError] = useState(false);
+  const [showError, setShowError] = useState(false);
   useEffect(() => {
     const savedTransacties = localStorage.getItem("transactions");
     setTransacties(savedTransacties ? JSON.parse(savedTransacties) : []);
@@ -20,7 +20,7 @@ function Settings() {
     setTimeout(() => {
       setShowError(false);
     }, 3000);
-  }
+  };
   return (
     <Container className="py-4">
       <h3 className="text-center mb-4">Instellingen</h3>
@@ -45,31 +45,74 @@ function Settings() {
             </Card.Header>
             <Card.Body>
               <Card.Text className="text-center">
-                Hier kan je je vermogen inzien en bewerken.
+                Hier kan je je vermogen inzien en je transactie lijst.
               </Card.Text>
               <ModalVermogen transacties={transacties} />
               <Button
-              variant="warning"
-              className="w-100 mt-3"
-              onClick={handleReset}>
+                variant="warning"
+                className="w-100 mt-3"
+                onClick={handleReset}
+              >
                 Reset
               </Button>
-              {showError && <Alert variant="success" className="mt-3">{errorMessage}</Alert>}
+              {showError && (
+                <Alert variant="success" className="mt-3">
+                  {errorMessage}
+                </Alert>
+              )}
             </Card.Body>
           </Card>
         </Col>
         <Col>
-        <Card>
-          <Card.Header className="bg-info text-white text-center display-6">
-            Biljetten Overzicht
-          </Card.Header>
-          <Card.Body>
-            <Card.Text className="text-center">
-              Hier kan je je biljetten overzicht inzien.
-            </Card.Text>
-            <ModalBiljetten />
-          </Card.Body>
-        </Card>
+          <Card>
+            <Card.Header className="bg-info text-white text-center display-6">
+              Biljetten Overzicht
+            </Card.Header>
+            <Card.Body>
+              <Card.Text className="text-center">
+                Hier kan je je biljetten overzicht inzien.
+              </Card.Text>
+              <ModalBiljetten />
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col>
+          <Card>
+            <Card.Header className="bg-secondary text-white text-center display-6">
+              Statistieken
+            </Card.Header>
+            <Card.Body>
+              <Card.Text className="text-center">
+                Bekijk hier een samenvatting van je financiën.
+              </Card.Text>
+              <ul>
+                <li>
+                  Totaal Inkomsten: €
+                  {transacties
+                    .filter((t) => t.type === "INKOMEN")
+                    .reduce((sum, t) => sum + t.bedrag, 0)
+                    .toFixed(2)}
+                </li>
+                <li>
+                  Totaal Uitgaven: €
+                  {transacties
+                    .filter((t) => t.type === "UITGAVEN")
+                    .reduce((sum, t) => sum + t.bedrag, 0)
+                    .toFixed(2)}
+                </li>
+                <li>
+                  Saldo: €
+                  {transacties
+                    .reduce(
+                      (sum, t) =>
+                        t.type === "INKOMEN" ? sum + t.bedrag : sum - t.bedrag,
+                      0
+                    )
+                    .toFixed(2)}
+                </li>
+              </ul>
+            </Card.Body>
+          </Card>
         </Col>
       </Row>
     </Container>
@@ -77,8 +120,3 @@ function Settings() {
 }
 
 export default Settings;
-// {sortedTransactions.map((transaction) =>(
-//   <div key={transaction.id}>
-//     <p>{transaction.aantalBiljetten}</p>
-//   </div>
-// ))}

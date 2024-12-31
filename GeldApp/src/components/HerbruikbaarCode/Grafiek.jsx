@@ -17,7 +17,7 @@ const Grafiek = () => {
 
   const totalAmount = transactions.reduce((sum, transaction) => sum + transaction.bedrag, 0);
   const percentageSpaardoel = spaardoel > 0 ? (totalAmount / spaardoel) * 100 : 0;
-  const percentageSpaardoelDisplay = percentageSpaardoel.toFixed(2);
+  const percentageSpaardoelDisplay = parseFloat(percentageSpaardoel.toFixed(2));
   return (
     <Box
       display="flex"
