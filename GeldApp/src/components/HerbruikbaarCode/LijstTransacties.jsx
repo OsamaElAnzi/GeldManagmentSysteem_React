@@ -49,13 +49,21 @@ function LijstTransacties({ transacties = [] }) {
               </td>
               <td>{transactie.biljetten || "Onbekend"}</td>
               <td>{transactie.aantalBiljetten || "Onbekend"}</td>
-              <td>
+              <td className="d-flex justify-content-around">
                 <Button
                   variant="danger"
                   value={transactie.id}
                   onClick={handleDelete}
+                  className="me-2"
                 >
                   Verwijderen
+                </Button>
+                <Button
+                  variant="warning"
+                  value={transactie.id}
+                  onClick={handleDelete}
+                >
+                  Aanpassen
                 </Button>
               </td>
             </tr>

@@ -19,6 +19,7 @@ function Settings() {
     setErrorMessage("Transacties zijn gereset.");
     setTimeout(() => {
       setShowError(false);
+      window.location.reload();
     }, 3000);
   };
   return (
