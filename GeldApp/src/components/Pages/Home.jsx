@@ -71,6 +71,7 @@ function Home() {
 
     setTransactions([...transactions, newTransaction]);
     handleClose();
+    window.location.reload();
   };
 
   return (

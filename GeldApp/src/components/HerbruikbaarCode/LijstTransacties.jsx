@@ -1,5 +1,5 @@
 import React from "react";
-import { Alert, Table, Container } from "react-bootstrap";
+import { Alert, Table, Container, Button } from "react-bootstrap";
 
 function LijstTransacties({ transacties = [] }) {
   if (transacties.length === 0) {
@@ -14,6 +14,13 @@ function LijstTransacties({ transacties = [] }) {
     (a, b) => new Date(a.datum) - new Date(b.datum)
   );
 
+  function handleDelete(event) {
+    const id = parseInt(event.target.value);
+    const updatedTransactions = transacties.filter((t) => t.id !== id);
+    localStorage.setItem("transactions", JSON.stringify(updatedTransactions));
+    window.location.reload();
+  }
+
   return (
     <Container className="mt-4">
       <h2 className="text-center mb-4">Transacties</h2>
@@ -25,6 +32,7 @@ function LijstTransacties({ transacties = [] }) {
             <th>Bedrag</th>
             <th>BiljetSoort</th>
             <th>AantalBiljetten</th>
+            <th>Verwijderen</th>
           </tr>
         </thead>
         <tbody>
@@ -41,6 +49,15 @@ function LijstTransacties({ transacties = [] }) {
               </td>
               <td>{transactie.biljetten || "Onbekend"}</td>
               <td>{transactie.aantalBiljetten || "Onbekend"}</td>
+              <td>
+                <Button
+                  variant="danger"
+                  value={transactie.id}
+                  onClick={handleDelete}
+                >
+                  Verwijderen
+                </Button>
+              </td>
             </tr>
           ))}
         </tbody>
