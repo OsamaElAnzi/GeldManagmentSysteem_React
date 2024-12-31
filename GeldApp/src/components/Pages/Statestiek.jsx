@@ -1,30 +1,30 @@
-import React, {useEffect, useState} from 'react'
-import { Container } from 'react-bootstrap'
+import React, { useEffect, useState } from 'react';
+import { Container } from 'react-bootstrap';
 import { Chart } from 'primereact/chart';
 
 function Statestiek() {
     const [chartData, setChartData] = useState({});
     const [chartOptions, setChartOptions] = useState({});
-    const [transactions, setTransaction] = useState([]);
+    const [transactions, setTransactions] = useState([]);
     const [spaardoel, setSpaardoel] = useState(0);
-    useEffect(() =>{
+
+    useEffect(() => {
         const savedSpaardoel = localStorage.getItem('spaardoel');
-        const savedtransacties = localStorage.getItem('transactions');
-        if (savedSpaardoel && savedtransacties) {
-            const spaardoelLocal = JSON.parse(savedSpaardoel);
-            const transactionsLocal = JSON.parse(savedtransacties);
-            setSpaardoel(spaardoelLocal);
-            setTransaction(transactionsLocal);
-        }
-    },[])
+        const savedTransacties = localStorage.getItem('transactions');
+        setSpaardoel(savedSpaardoel ? JSON.parse(savedSpaardoel) : 0);
+        setTransactions(savedTransacties ? JSON.parse(savedTransacties) : []);
+    }, []);
+
     const totaleInkomsten = transactions
-    .filter((t) => t.type === "INKOMEN")
-    .reduce((sum, t) => sum + t.bedrag, 0);
+        .filter((t) => t.type === "INKOMEN")
+        .reduce((sum, t) => sum + t.bedrag, 0);
     const totaleUitgaven = transactions
-    .filter((t) => t.type === "UITGAVEN")
-    .reduce((sum, t) => sum + t.bedrag, 0);
-    const inkomsten = parseFloat(totaleInkomsten);
-    const uitgaven = parseFloat(totaleUitgaven);
+        .filter((t) => t.type === "UITGAVEN")
+        .reduce((sum, t) => sum + t.bedrag, 0);
+
+    const inkomsten = parseFloat(totaleInkomsten) || 0;
+    const uitgaven = parseFloat(totaleUitgaven) || 0;
+
     useEffect(() => {
         const data = {
             labels: ['Inkomen', 'Uitgaven', 'Spaardoel'],
@@ -36,13 +36,13 @@ function Statestiek() {
                         'rgba(16, 196, 0, 0.56)',
                         'rgba(255, 0, 0, 0.2)',
                         'rgba(0, 4, 255, 0.2)'
-                      ],
-                      borderColor: [
+                    ],
+                    borderColor: [
                         'rgba(16, 196, 0, 0.56)',
                         'rgba(255, 0, 0, 0.2)',
                         'rgba(0, 4, 255, 0.2)'
-                      ],
-                      borderWidth: 1
+                    ],
+                    borderWidth: 1
                 }
             ]
         };
@@ -56,15 +56,14 @@ function Statestiek() {
 
         setChartData(data);
         setChartOptions(options);
-
-    }, []);
+    }, [inkomsten, uitgaven, spaardoel]);
 
     return (
         <Container className='text-center'>
-            <h1>Statestieken</h1>
+            <h1>Statistieken</h1>
             <Chart type="bar" data={chartData} options={chartOptions} />
         </Container>
-    )
+    );
 }
 
-export default Statestiek
+export default Statestiek;
