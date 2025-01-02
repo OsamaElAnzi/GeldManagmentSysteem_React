@@ -1,10 +1,19 @@
 import React, { useState } from "react";
-import { Alert, Container, Button, Accordion, Modal, Form } from "react-bootstrap";
+import {
+  Alert,
+  Container,
+  Button,
+  Accordion,
+  Modal,
+  Form,
+} from "react-bootstrap";
 
 function LijstTransacties({ transacties = [] }) {
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [newAmount, setNewAmount] = useState("");
+  const [newOmschrijving, setNewOmschrijving] = useState("");
+  const [newSoortTransactie, setNewSoortTransactie] = useState("");
 
   if (transacties.length === 0) {
     return (
@@ -28,12 +37,19 @@ function LijstTransacties({ transacties = [] }) {
   function handleOpenEditModal(transactie) {
     setSelectedTransaction(transactie);
     setNewAmount(transactie.bedrag.toFixed(2));
+    setNewOmschrijving(transactie.omschrijving);
+    setNewSoortTransactie(transactie.type);
     setShowEditModal(true);
   }
 
   function handleSaveEdit() {
     const id = selectedTransaction.id;
-    const updatedTransaction = { ...selectedTransaction, bedrag: parseFloat(newAmount) };
+    const updatedTransaction = {
+      ...selectedTransaction,
+      bedrag: parseFloat(newAmount),
+      omschrijving: newOmschrijving,
+      type: newSoortTransactie,
+    };
     const updatedTransactions = transacties.map((t) =>
       t.id === id ? updatedTransaction : t
     );
@@ -57,7 +73,10 @@ function LijstTransacties({ transacties = [] }) {
           </div>
           <Accordion>
             {sortedTransactions.map((transactie) => (
-              <Accordion.Item eventKey={transactie.id.toString()} key={transactie.id}>
+              <Accordion.Item
+                eventKey={transactie.id.toString()}
+                key={transactie.id}
+              >
                 <Accordion.Header>
                   <div className="d-flex justify-content-between w-100">
                     <div className="w-25">
@@ -66,10 +85,13 @@ function LijstTransacties({ transacties = [] }) {
                     <div className="w-25">{transactie.type}</div>
                     <div
                       className={`w-25 ${
-                        transactie.type === "INKOMEN" ? "text-success" : "text-danger"
+                        transactie.type === "INKOMEN"
+                          ? "text-success"
+                          : "text-danger"
                       }`}
                     >
-                      {transactie.type === "INKOMEN" ? "+" : "-"}€{transactie.bedrag.toFixed(2)}
+                      {transactie.type === "INKOMEN" ? "+" : "-"}€
+                      {transactie.bedrag.toFixed(2)}
                     </div>
                     <div className="w-25">
                       <Button
@@ -92,13 +114,16 @@ function LijstTransacties({ transacties = [] }) {
                 </Accordion.Header>
                 <Accordion.Body>
                   <p>
-                    <strong>Biljet Soort:</strong> {transactie.biljetten || "Onbekend"}
+                    <strong>Biljet Soort:</strong>{" "}
+                    {transactie.biljetten || "Onbekend"}
                   </p>
                   <p>
-                    <strong>Aantal Biljetten:</strong> {transactie.aantalBiljetten || "Onbekend"}
+                    <strong>Aantal Biljetten:</strong>{" "}
+                    {transactie.aantalBiljetten || "Onbekend"}
                   </p>
                   <p>
-                    <strong>Omschrijving:</strong> {transactie.omschrijving || "Geen omschrijving"}
+                    <strong>Omschrijving:</strong>{" "}
+                    {transactie.omschrijving || "Geen omschrijving"}
                   </p>
                 </Accordion.Body>
               </Accordion.Item>
@@ -120,6 +145,25 @@ function LijstTransacties({ transacties = [] }) {
                 step="0.01"
                 value={newAmount}
                 onChange={(e) => setNewAmount(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="newSoortTransactie">
+              <Form.Label>Nieuw Soort Transactie</Form.Label>
+              <Form.Select
+                value={newSoortTransactie}
+                onChange={(e) => setNewSoortTransactie(e.target.value)}
+                required
+              >
+                <option>INKOMEN</option>
+                <option>UITGAVEN</option>
+              </Form.Select>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="newOmschrijving">
+              <Form.Label>Nieuw Omschrijving</Form.Label>
+              <Form.Control
+                type="text"
+                value={newOmschrijving}
+                onChange={(e) => setNewOmschrijving(e.target.value)}
               />
             </Form.Group>
           </Form>

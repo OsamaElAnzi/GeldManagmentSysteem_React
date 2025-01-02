@@ -98,6 +98,8 @@ function Home() {
               <Form.Control
                 type="number"
                 placeholder="Bedrag"
+                min="1"
+                max="1000000000"
                 value={bedrag}
                 onChange={(e) => setBedrag(e.target.value)}
                 required
@@ -120,6 +122,7 @@ function Home() {
               <Form.Control
                 type="text"
                 placeholder="Omschrijving"
+                maxLength={30}
                 value={omschrijving}
                 onChange={(e) => setOmschrijving(e.target.value)}
                 required
