@@ -1,7 +1,11 @@
-import React from "react";
-import { Alert, Container, Button, Accordion } from "react-bootstrap";
+import React, { useState } from "react";
+import { Alert, Container, Button, Accordion, Modal, Form } from "react-bootstrap";
 
 function LijstTransacties({ transacties = [] }) {
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [selectedTransaction, setSelectedTransaction] = useState(null);
+  const [newAmount, setNewAmount] = useState("");
+
   if (transacties.length === 0) {
     return (
       <Container className="text-center mt-4">
@@ -18,7 +22,24 @@ function LijstTransacties({ transacties = [] }) {
     const id = parseInt(event.target.value);
     const updatedTransactions = transacties.filter((t) => t.id !== id);
     localStorage.setItem("transactions", JSON.stringify(updatedTransactions));
-    window.location.reload(); // Refresh the page to show updated transactions
+    window.location.reload();
+  }
+
+  function handleOpenEditModal(transactie) {
+    setSelectedTransaction(transactie);
+    setNewAmount(transactie.bedrag.toFixed(2));
+    setShowEditModal(true);
+  }
+
+  function handleSaveEdit() {
+    const id = selectedTransaction.id;
+    const updatedTransaction = { ...selectedTransaction, bedrag: parseFloat(newAmount) };
+    const updatedTransactions = transacties.map((t) =>
+      t.id === id ? updatedTransaction : t
+    );
+    localStorage.setItem("transactions", JSON.stringify(updatedTransactions));
+    setShowEditModal(false);
+    window.location.reload();
   }
 
   return (
@@ -26,7 +47,7 @@ function LijstTransacties({ transacties = [] }) {
       <h2 className="text-center mb-4">Transacties</h2>
       <div className="table-responsive">
         <div className="table">
-          <div className="table-header  border text-white">
+          <div className="table-header border text-white">
             <div className="d-flex justify-content-between p-2">
               <div className="w-25">Datum</div>
               <div className="w-25">Type</div>
@@ -48,8 +69,7 @@ function LijstTransacties({ transacties = [] }) {
                         transactie.type === "INKOMEN" ? "text-success" : "text-danger"
                       }`}
                     >
-                      {transactie.type === "INKOMEN" ? "+" : "-"}€
-                      {transactie.bedrag.toFixed(2)}
+                      {transactie.type === "INKOMEN" ? "+" : "-"}€{transactie.bedrag.toFixed(2)}
                     </div>
                     <div className="w-25">
                       <Button
@@ -60,20 +80,56 @@ function LijstTransacties({ transacties = [] }) {
                       >
                         Verwijderen
                       </Button>
-                      <Button variant="warning">Aanpassen</Button>
+                      <Button
+                        variant="warning"
+                        className="me-2"
+                        onClick={() => handleOpenEditModal(transactie)}
+                      >
+                        Aanpassen
+                      </Button>
                     </div>
                   </div>
                 </Accordion.Header>
                 <Accordion.Body>
-                  <p><strong>Biljet Soort:</strong> {transactie.biljetten || "Onbekend"}</p>
-                  <p><strong>Aantal Biljetten:</strong> {transactie.aantalBiljetten || "Onbekend"}</p>
-                  <p><strong>Omschrijving:</strong> {transactie.omschrijving || "Geen omschrijving"}</p>
+                  <p>
+                    <strong>Biljet Soort:</strong> {transactie.biljetten || "Onbekend"}
+                  </p>
+                  <p>
+                    <strong>Aantal Biljetten:</strong> {transactie.aantalBiljetten || "Onbekend"}
+                  </p>
+                  <p>
+                    <strong>Omschrijving:</strong> {transactie.omschrijving || "Geen omschrijving"}
+                  </p>
                 </Accordion.Body>
               </Accordion.Item>
             ))}
           </Accordion>
         </div>
       </div>
+
+      <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Transactie Aanpassen</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3" controlId="newAmount">
+              <Form.Label>Nieuw Bedrag</Form.Label>
+              <Form.Control
+                type="number"
+                step="0.01"
+                value={newAmount}
+                onChange={(e) => setNewAmount(e.target.value)}
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleSaveEdit}>
+            Opslaan
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 }
