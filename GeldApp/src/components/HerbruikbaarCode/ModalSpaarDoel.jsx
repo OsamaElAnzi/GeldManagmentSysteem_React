@@ -115,7 +115,7 @@ export function Spaardoel({ spaardoel }) {
   return (
     <div>
       <h4 className="display-6">
-        {spaardoel ? `€${spaardoel}` : "Geen spaardoel"}
+        {spaardoel ? `€${spaardoel.toFixed(2)}` : "Geen spaardoel"}
       </h4>
     </div>
   );
