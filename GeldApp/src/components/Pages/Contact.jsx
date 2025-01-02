@@ -1,93 +1,91 @@
-import React from "react";
-import { Container, Form, Button, Card, Col, Row } from "react-bootstrap";
+import React, { useRef, useState } from "react";
+import emailjs from "@emailjs/browser";
+import { Container, Form, Button, Alert, Card } from "react-bootstrap";
 
 function Contact() {
+  const form = useRef();
+  const [alert, setAlert] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const emailVersturen = (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    emailjs
+      .sendForm(
+        "service_u4by93o",
+        "template_yyl1wok",
+        form.current,
+        "FAX_q-rpkU_WhLRjx"
+      )
+      .then(
+        (result) => {
+          setAlert({ type: "success", message: "Email verstuurd!" });
+          form.current.reset();
+        },
+        (error) => {
+          setAlert({ type: "danger", message: "Er is iets misgegaan!" });
+        }
+      )
+      .finally(() => {
+        setIsSubmitting(false);
+      });
+  };
+
   return (
     <Container className="my-5">
-      <h1 className="text-center mb-4 text-primary">Contacteer Ons</h1>
-      <Card className="shadow border-0">
-        <Card.Header className="bg-primary text-white text-center py-3">
-          <h3 className="mb-0">Neem contact met ons op</h3>
-        </Card.Header>
-        <Card.Body className="p-4">
-          <Row>
-            <Col md={6} className="border-end pe-md-4">
-              <Form>
-                <Row className="mb-3">
-                  <Col>
-                    <Form.Group controlId="formName">
-                      <Form.Label>Volledige Naam</Form.Label>
-                      <Form.Control
-                        type="text"
-                        placeholder="Voer je volledige naam in"
-                        className="rounded-0"
-                      />
-                    </Form.Group>
-                  </Col>
-                  <Col>
-                    <Form.Group controlId="formPhone">
-                      <Form.Label>Telefoonnummer</Form.Label>
-                      <Form.Control
-                        type="text"
-                        placeholder="Voer je telefoonnummer in"
-                        className="rounded-0"
-                      />
-                    </Form.Group>
-                  </Col>
-                </Row>
-                <Form.Group controlId="formEmail" className="mb-3">
-                  <Form.Label>Emailadres</Form.Label>
-                  <Form.Control
-                    type="email"
-                    placeholder="Voer je emailadres in"
-                    className="rounded-0"
-                  />
-                </Form.Group>
-                <Form.Group controlId="formMessage" className="mb-4">
-                  <Form.Label>Bericht</Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    rows={5}
-                    placeholder="Schrijf je bericht hier"
-                    className="rounded-0"
-                  />
-                </Form.Group>
-                <Button
-                  variant="primary"
-                  type="submit"
-                  className="w-100 py-2 rounded-0"
-                >
-                  Verstuur Bericht
-                </Button>
-              </Form>
-            </Col>
-            <Col
-              md={6}
-              className="d-flex flex-column justify-content-center align-items-center text-center bg-light"
+      <h1 className="text-center mb-4">Contact</h1>
+      <Card className="shadow">
+        <Card.Body>
+          {alert && (
+            <Alert
+              variant={alert.type}
+              onClose={() => setAlert(null)}
+              dismissible
             >
-              <div className="p-3">
-                <h5 className="text-secondary mb-3">Onze gegevens</h5>
-                <p className="mb-1">
-                  <strong>Adres:</strong> Utrecht, Overvecht
-                </p>
-                <p className="mb-1">
-                  <strong>Telefoon:</strong> +31 6 85493708
-                </p>
-                <p className="mb-1">
-                  <strong>Email:</strong> osamaelanzi0@gmail.com
-                </p>
-                <hr className="my-4" />
-                <blockquote className="blockquote text-muted">
-                  <p className="mb-0">
-                    "Goede communicatie is de sleutel tot succes."
-                  </p>
-                  <footer className="blockquote-footer mt-2">
-                    Zakelijk advies
-                  </footer>
-                </blockquote>
-              </div>
-            </Col>
-          </Row>
+              {alert.message}
+            </Alert>
+          )}
+          <Form ref={form} onSubmit={emailVersturen}>
+            <Form.Group controlId="formBasicEmail" className="mb-3">
+              <Form.Label>Email Adres</Form.Label>
+              <Form.Control
+                type="email"
+                name="user_email"
+                placeholder="Voer uw email adres in"
+                required
+              />
+            </Form.Group>
+            <Form.Group controlId="formBasicPhone" className="mb-3">
+              <Form.Label>Telefoonnummer</Form.Label>
+              <Form.Control
+                type="tel"
+                name="user_phone"
+                placeholder="Voer uw telefoonnummer in"
+                required
+              />
+            </Form.Group>
+            <Form.Group controlId="formBasicMessage" className="mb-3">
+              <Form.Label>Bericht</Form.Label>
+              <Form.Control
+                as="textarea"
+                name="message"
+                rows={3}
+                placeholder="Voer uw bericht in"
+                required
+              />
+            </Form.Group>
+            <Form.Group controlId="formBasicCheckbox" className="mb-3">
+              <Form.Check
+                type="checkbox"
+                label="Ik ga akkoord met de privacyregels"
+                required
+              />
+            </Form.Group>
+            <Button variant="primary" type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "Verzenden..." : "Verzenden"}
+            </Button>
+          </Form>
         </Card.Body>
       </Card>
     </Container>
