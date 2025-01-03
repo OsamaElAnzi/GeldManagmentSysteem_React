@@ -15,7 +15,7 @@ const NavSideBar = () => {
     <div
       className={`d-flex flex-column bg-primary text-white p-3 ${isCollapsed ? "collapsed" : ""}`}
       style={{
-        width: isCollapsed ? "80px" : "250px",
+        width: isCollapsed ? "60px" : "220px",
         transition: "width 0.3s ease",
         height: "100vh",
         position: "fixed",
@@ -28,7 +28,7 @@ const NavSideBar = () => {
       <div className="d-flex justify-content-between align-items-center mb-4">
         {!isCollapsed && <h3 className="text-center">Dashboard</h3>}
         <button
-          className="btn btn-link text-white p-0 ms-auto"
+          className="btn btn-link text-white p-0 ms-0 w-100 text-end"
           onClick={toggleSidebar}
           style={{ fontSize: "1.5rem" }}
         >
