@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ModalSpaarDoel from "../HerbruikbaarCode/ModalSpaarDoel";
 import ModalVermogen from "../HerbruikbaarCode/ModalVermogen";
 import ModalBiljetten from "../HerbruikbaarCode/ModalBiljetten";
+import ModalTaal from "../HerbruikbaarCode/ModalTaal";
 import { Card, Container, Row, Col, Button, Alert } from "react-bootstrap";
 
 function Settings() {
@@ -27,7 +28,7 @@ function Settings() {
       <h3 className="text-center mb-4">Instellingen</h3>
       <Row xs={1} sm={2} md={3} lg={4} className="g-4">
         <Col>
-          <Card>
+          <Card className="shadow border-0">
             <Card.Header className="bg-success text-white text-center display-6">
               Jouw spaardoel
             </Card.Header>
@@ -40,7 +41,7 @@ function Settings() {
           </Card>
         </Col>
         <Col>
-          <Card>
+          <Card className="shadow border-0">
             <Card.Header className="bg-primary text-white text-center display-6">
               Jouw vermogen
             </Card.Header>
@@ -65,7 +66,7 @@ function Settings() {
           </Card>
         </Col>
         <Col>
-          <Card>
+          <Card className="shadow border-0">
             <Card.Header className="bg-info text-white text-center display-6">
               Biljetten Overzicht
             </Card.Header>
@@ -78,7 +79,7 @@ function Settings() {
           </Card>
         </Col>
         <Col>
-          <Card>
+          <Card className="shadow border-0">
             <Card.Header className="bg-dark text-white text-center display-6">
               Statistieken
             </Card.Header>
@@ -114,6 +115,9 @@ function Settings() {
               </ul>
             </Card.Body>
           </Card>
+        </Col>
+        <Col>
+          <ModalTaal />
         </Col>
       </Row>
     </Container>

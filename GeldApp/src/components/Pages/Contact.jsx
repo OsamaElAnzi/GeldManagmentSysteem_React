@@ -36,7 +36,7 @@ function Contact() {
         <Card.Header className="bg-primary text-white text-center py-4">
           <h1 className="mb-0">Neem Contact Op</h1>
         </Card.Header>
-        <Card.Body>
+        <Card.Body className="bg-contact">
           <Row className="align-items-center">
             {/* Contact Form */}
             <Col md={6} className="px-4">
