@@ -4,7 +4,8 @@ import Home from './components/Pages/Home.jsx'
 import Contact from './components/Pages/Contact.jsx'
 import Help from './components/Pages/Help.jsx'
 import Settings from './components/Pages/Settings.jsx'
-import Statestiek from "./components/Pages/Statestiek.jsx";
+import Statestiek from "./components/Pages/Statestiek.jsx"
+import './App.scss'
 
 import { Routes ,Route } from 'react-router-dom'
 function App() {

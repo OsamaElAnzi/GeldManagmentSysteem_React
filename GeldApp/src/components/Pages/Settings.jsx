@@ -23,7 +23,7 @@ function Settings() {
     }, 3000);
   };
   return (
-    <Container className="py-4">
+    <Container className="py-4 vh-100">
       <h3 className="text-center mb-4">Instellingen</h3>
       <Row xs={1} sm={2} md={3} lg={4} className="g-4">
         <Col>
