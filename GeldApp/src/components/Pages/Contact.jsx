@@ -101,7 +101,6 @@ function Contact() {
               </Form>
             </Col>
 
-            {/* Contact Details */}
             <Col md={6} className="px-4">
               <div className="border-start ps-4">
                 <h3 className="mb-3 text-primary">Contactgegevens</h3>

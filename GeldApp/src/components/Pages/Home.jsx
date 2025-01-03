@@ -4,6 +4,8 @@ import DisplayData from "../HerbruikbaarCode/DisplayData";
 import LijstTransacties from "../HerbruikbaarCode/LijstTransacties";
 import { Container, Button, Modal, Form, Alert } from "react-bootstrap";
 
+
+
 function getDate() {
   const today = new Date();
   const date = today.getDate();

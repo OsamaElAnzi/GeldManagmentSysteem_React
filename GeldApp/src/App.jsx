@@ -7,6 +7,7 @@ import Settings from './components/Pages/Settings.jsx'
 import Statestiek from "./components/Pages/Statestiek.jsx"
 import './App.scss'
 
+
 import { Routes ,Route } from 'react-router-dom'
 function App() {
   return (
