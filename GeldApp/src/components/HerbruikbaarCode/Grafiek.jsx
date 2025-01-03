@@ -39,7 +39,7 @@ const Grafiek = () => {
           "& .MuiGauge-valueText": {
             fontSize: "24px",
             fontWeight: "bold",
-            color: "#1976d2",
+            color: "#2ed573",
           },
         }}
       />

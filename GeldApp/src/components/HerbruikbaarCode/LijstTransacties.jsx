@@ -59,77 +59,81 @@ function LijstTransacties({ transacties = [] }) {
   }
 
   return (
-    <Container className="mt-4">
-      <h2 className="text-center mb-4">Transacties</h2>
-      <div className="table-responsive">
-        <div className="table">
-          <div className="table-header border text-white">
-            <div className="d-flex justify-content-between p-2">
-              <div className="w-25">Datum</div>
-              <div className="w-25">Type</div>
-              <div className="w-25">Bedrag</div>
-              <div className="w-25">Acties</div>
-            </div>
+    <Container className="mt-4 bg-primary text-white pt-4 rounded">
+      <h2 className="text-center mb-4 p-0">Transacties</h2>
+      <div className="table-responsive p-0">
+        <div className="table-header">
+          <div className="d-flex justify-content-between pb-3">
+            <div className="w-50 h4">Datum</div>
+            <div className="w-50 h4">Type</div>
+            <div className="w-50 h4">Bedrag</div>
+            <div className="w-50 h4">Acties</div>
           </div>
-          <Accordion>
-            {sortedTransactions.map((transactie) => (
-              <Accordion.Item
-                eventKey={transactie.id.toString()}
-                key={transactie.id}
-              >
-                <Accordion.Header>
-                  <div className="d-flex justify-content-between w-100">
-                    <div className="w-25">
-                      {new Date(transactie.datum).toLocaleDateString()}
-                    </div>
-                    <div className="w-25">{transactie.type}</div>
-                    <div
-                      className={`w-25 ${
-                        transactie.type === "INKOMEN"
-                          ? "text-success"
-                          : "text-danger"
-                      }`}
-                    >
-                      {transactie.type === "INKOMEN" ? "+" : "-"}€
-                      {transactie.bedrag.toFixed(2)}
-                    </div>
-                    <div className="w-25">
-                      <Button
-                        variant="danger"
-                        value={transactie.id}
-                        onClick={handleDelete}
-                        className="me-2"
-                      >
-                        Verwijderen
-                      </Button>
-                      <Button
-                        variant="warning"
-                        className="me-2"
-                        onClick={() => handleOpenEditModal(transactie)}
-                      >
-                        Aanpassen
-                      </Button>
-                    </div>
-                  </div>
-                </Accordion.Header>
-                <Accordion.Body>
-                  <p>
-                    <strong>Biljet Soort:</strong>{" "}
-                    {transactie.biljetten || "Onbekend"}
-                  </p>
-                  <p>
-                    <strong>Aantal Biljetten:</strong>{" "}
-                    {transactie.aantalBiljetten || "Onbekend"}
-                  </p>
-                  <p>
-                    <strong>Omschrijving:</strong>{" "}
-                    {transactie.omschrijving || "Geen omschrijving"}
-                  </p>
-                </Accordion.Body>
-              </Accordion.Item>
-            ))}
-          </Accordion>
         </div>
+        <Accordion>
+          {sortedTransactions.map((transactie) => (
+            <Accordion.Item
+              eventKey={transactie.id.toString()}
+              key={transactie.id}
+              className="p-0 bg-light "
+              style={{ padding: 0 }}
+            >
+              <Accordion.Header className="pe-4">
+                <div
+                  className="d-flex justify-content-between w-100 bg-light"
+                  style={{ padding: 0 }}
+                >
+                  <div className="w-25 p-0">
+                    {new Date(transactie.datum).toLocaleDateString()}
+                  </div>
+                  <div className="w-25 p-0">{transactie.type}</div>
+                  <div
+                    className={`w-25 ${
+                      transactie.type === "INKOMEN"
+                        ? "text-success"
+                        : "text-danger"
+                    }`}
+                    style={{ padding: 0 }}
+                  >
+                    {transactie.type === "INKOMEN" ? "+" : "-"}€
+                    {transactie.bedrag.toFixed(2)}
+                  </div>
+                  <div className="w-25 p-0">
+                    <Button
+                      variant="danger"
+                      value={transactie.id}
+                      onClick={handleDelete}
+                      className="me-2"
+                    >
+                      Verwijderen
+                    </Button>
+                    <Button
+                      variant="warning"
+                      className="me-2"
+                      onClick={() => handleOpenEditModal(transactie)}
+                    >
+                      Aanpassen
+                    </Button>
+                  </div>
+                </div>
+              </Accordion.Header>
+              <Accordion.Body>
+                <p>
+                  <strong>Biljet Soort:</strong>{" "}
+                  {transactie.biljetten || "Onbekend"}
+                </p>
+                <p>
+                  <strong>Aantal Biljetten:</strong>{" "}
+                  {transactie.aantalBiljetten || "Onbekend"}
+                </p>
+                <p>
+                  <strong>Omschrijving:</strong>{" "}
+                  {transactie.omschrijving || "Geen omschrijving"}
+                </p>
+              </Accordion.Body>
+            </Accordion.Item>
+          ))}
+        </Accordion>
       </div>
 
       <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>

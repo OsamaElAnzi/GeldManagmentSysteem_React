@@ -31,7 +31,7 @@ function Contact() {
   };
 
   return (
-    <Container className="my-5">
+    <Container className="my-5 vh-100">
       <Card className="shadow border-0">
         <Card.Header className="bg-primary text-white text-center py-4">
           <h1 className="mb-0">Neem Contact Op</h1>

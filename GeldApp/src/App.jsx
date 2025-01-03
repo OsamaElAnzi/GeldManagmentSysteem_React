@@ -10,7 +10,7 @@ import './App.scss'
 import { Routes ,Route } from 'react-router-dom'
 function App() {
   return (
-    <div className='d-flex flex-row'>
+    <div className='d-flex flex-row bg-secondary'>
       <NavSideBar />
       <Routes>
         <Route path="/" element={<Home />} />

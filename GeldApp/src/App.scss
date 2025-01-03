@@ -1,0 +1,30 @@
+$primary: #32292F; // Nieuwe kleur voor primary
+$secondary: #70ABAF; // Nieuwe kleur
+// Nieuwe kleur voor secondary
+// Importeer Bootstrap met de nieuwe instellingen
+@import "bootstrap";
+
+// Eventueel: Voeg specifieke overschrijvingen toe als nodig
+.bg-primary {
+  background-color: $primary !important;
+}
+.bg-secondary {
+  background-color: $secondary !important;
+}
+
+.accordion-button {
+  padding: 0 !important; /* Verwijder standaard padding */
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 70px;
+  background-color: #F8F9FA;
+}
+
+
+.accordion-button:not(.collapsed) {
+  color: var(--bs-accordion-active-color);
+  background-color: #F8F9FA;
+  box-shadow: inset 0 calc(-1* var(--bs-accordion-border-width)) 0 var(--bs-accordion-border-color);
+}

@@ -33,9 +33,9 @@ function Statestiek() {
                     label: 'Overzicht',
                     data: [inkomsten, uitgaven, parseFloat(spaardoel)],
                     backgroundColor: [
-                        'rgba(16, 196, 0, 0.56)',
-                        'rgba(255, 0, 0, 0.2)',
-                        'rgba(0, 4, 255, 0.2)'
+                        'rgb(21, 255, 0)',
+                        'rgb(255, 0, 0)',
+                        'rgb(0, 4, 255)'
                     ],
                     borderColor: [
                         'rgba(16, 196, 0, 0.56)',

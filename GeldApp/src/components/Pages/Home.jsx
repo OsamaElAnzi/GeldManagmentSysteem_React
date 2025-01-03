@@ -73,9 +73,8 @@ function Home() {
     handleClose();
     window.location.reload();
   };
-
   return (
-    <Container className="d-flex flex-column">
+    <Container className={`d-flex flex-column vh-auto`}>
       <DisplayData />
       <Grafiek />
       <Button

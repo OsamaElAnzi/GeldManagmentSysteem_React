@@ -23,9 +23,9 @@ function DisplayData() {
     <Container className="py-4">
       <Row className="text-center">
         <Col>
-          <Card className="shadow-sm border-0">
+          <Card className="shadow-sm border-0 bg-primary text-white">
             <Card.Body>
-              <h3 className="text-primary">Vermogen</h3>
+              <h3 style={{color:'#1e90ff'}}>Vermogen</h3>
               <h4 className={`display-6 ${totalVermogen < 0 ? "text-danger" : ""}`}>
                 €{totalVermogen}
               </h4>
@@ -33,7 +33,7 @@ function DisplayData() {
           </Card>
         </Col>
         <Col>
-          <Card className="shadow-sm border-0">
+          <Card className="shadow-sm border-0 bg-primary text-white">
             <Card.Body>
               <h3 className="text-warning">Nog te gaan:</h3>
               <h4 className="display-6">
@@ -43,7 +43,7 @@ function DisplayData() {
           </Card>
         </Col>
         <Col>
-          <Card className="shadow-sm border-0">
+          <Card className="shadow-sm border-0 bg-primary text-white">
             <Card.Body>
               <h3 className="text-success">Spaardoel:</h3>
               <Spaardoel spaardoel={spaardoel} />

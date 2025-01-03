@@ -79,7 +79,7 @@ function Settings() {
         </Col>
         <Col>
           <Card>
-            <Card.Header className="bg-secondary text-white text-center display-6">
+            <Card.Header className="bg-dark text-white text-center display-6">
               Statistieken
             </Card.Header>
             <Card.Body>
