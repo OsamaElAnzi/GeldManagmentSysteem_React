@@ -79,7 +79,7 @@ function Home() {
       <Grafiek />
       <Button
         variant="primary"
-        className="mt-3"
+        className="mt-3 mb-5"
         onClick={handleShow}
         data-bs-toggle="modal"
       >
